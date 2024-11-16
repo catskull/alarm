@@ -170,3 +170,4 @@ dist
 
 .dev.vars
 .wrangler/
+hardware/client/wifi_credentials.h
