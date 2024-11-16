@@ -1,15 +1,13 @@
+#include "wifi_credentials.h"
+
 #include <WiFi.h>
 #include <WiFiClientSecure.h>
 #include <HTTPClient.h>
 
-// Replace with your network credentials
-const char* ssid = "ScumNet";
-const char* password = "4357051756";
-
 // Replace with your HTTPS URL
 const char* serverName = "https://alarm.degraw.workers.dev";
 
-#define LED_BUILTIN 2;
+#define LED_BUILTIN 13;
 
 // Built-in LED pin
 const int ledPin = LED_BUILTIN;
@@ -50,14 +48,15 @@ void loop() {
 
     // Handle the response
     if (httpResponseCode > 0) {
-      Serial.print("HTTP Response code: ");
-      Serial.println(httpResponseCode);
+      // Serial.print("HTTP Response code: ");
+      // Serial.println(httpResponseCode);
 
       String response = https.getString();
       Serial.println("Response:");
       Serial.println(response);
       if (response == "1") {
         digitalWrite(ledPin, HIGH); // Turn LED on
+        Serial.println("ACTIVE SHOOTER");
       } else {
         digitalWrite(ledPin, LOW); // Turn LED off
       }
