@@ -1,3 +1,5 @@
+// https://www.amazon.com/dp/B0B7VPZ6WC
+
 #include "wifi_credentials.h"
 
 #include <WiFi.h>
