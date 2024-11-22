@@ -7,19 +7,25 @@
 // Replace with your HTTPS URL
 const char* serverName = "https://alarm.degraw.workers.dev";
 
-#define LED_BUILTIN 13;
+#define LED_BUILTIN 2;
+#define RELAY 19;
+#define BUTTON 9;
 
 // Built-in LED pin
 const int ledPin = LED_BUILTIN;
+const int relayPin = RELAY;
 
 void setup() {
   Serial.begin(115200);
 
   // Set the built-in LED as an output
   pinMode(ledPin, OUTPUT);
+  pinMode(relayPin, OUTPUT);
+  // pinMode(BUTTON, INPUT);
 
   // Ensure the LED is off initially
   digitalWrite(ledPin, LOW);
+  digitalWrite(relayPin, LOW);
 
   // Connect to Wi-Fi
   WiFi.begin(ssid, password);
@@ -28,6 +34,7 @@ void setup() {
     delay(1000);
     Serial.print(".");
   }
+  digitalWrite(ledPin, HIGH);
   Serial.println("\nWiFi connected.");
   Serial.println("IP address: ");
   Serial.println(WiFi.localIP());
@@ -55,15 +62,15 @@ void loop() {
       Serial.println("Response:");
       Serial.println(response);
       if (response == "1") {
-        digitalWrite(ledPin, HIGH); // Turn LED on
+        digitalWrite(relayPin, HIGH); // Turn LED on
         Serial.println("ACTIVE SHOOTER");
       } else {
-        digitalWrite(ledPin, LOW); // Turn LED off
+        digitalWrite(relayPin, LOW); // Turn LED off
       }
     } else {
       Serial.print("Error code: ");
       Serial.println(httpResponseCode);
-      digitalWrite(ledPin, LOW); // Turn LED off in case of error
+      digitalWrite(relayPin, LOW); // Turn LED off in case of error
     }
 
     // End the connection
